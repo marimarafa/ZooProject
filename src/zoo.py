@@ -68,7 +68,7 @@ class ZooKeeper:
         self.surname = surname
         self.id = id
 
-    def add_animal(self, animal, fence):
+    def add_animal(self, animal:Animal, fence:Fence):
             if animal in fence.animals:
                 return f'The {animal.name} already exist in this fence'
             if not fence.area >= animal.height * animal.width:
@@ -80,7 +80,7 @@ class ZooKeeper:
             if animal.preferred_habitat != fence.habitat:
                 return (f"Cannot add {animal.name} in  {fence.habitat} fence.")
 
-    def remove_animal(self, animal, fence):
+    def remove_animal(self, animal:Animal, fence:Fence):
         if animal not in fence.animals:
             return(f" The {animal.name} is not in this fence.")
         else:
@@ -88,15 +88,20 @@ class ZooKeeper:
             fence.area == fence.area + (animal.height * animal.width)
             return(f'Animal removed correctly! Area of the fence is now updated to : {round(fence.area,3)}')
 
-    def feed(self, animal,fence):
-            if fence.area > animal.height * animal.width:
-                animal.health *= 1.01
-                animal.height *= 1.02
-                animal.width *= 1.02
+    def feed(self, animal: Animal,fence: Fence):
+        w = animal.width * 1.02
+        h = animal.height * 1.02
+        area = w*h
+        if fence.area >= area:
+            animal.health *= 1.01
+            animal.height *= 1.02
+            animal.width *= 1.027
             return(f"Fed {animal.name} , animal height:{round(animal.height,3)},animal health: {round(animal.health,3)}, animal width: {round(animal.width,3)}")
+        else:
+            return (f'The animal could not be feeded.')
 
  
-    def clean(self, fence) -> float:
+    def clean(self, fence:Fence) -> float:
         for animal in fence.animals:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
