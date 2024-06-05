@@ -100,10 +100,10 @@ class ZooKeeper:
         for animal in fence.animals:
             occupied_area = animal.height * animal.width
             remaining_area = fence.area - occupied_area
-            if remaining_area <= 0 :
-                return f'The time spent cleaning the {fence.habitat} fence :{round(occupied_area,3)}'
+            if remaining_area <= 0:
+                return round(occupied_area,3)
             else:
-                return f'The time spent cleaning the {fence.habitat} fence :{round(occupied_area / remaining_area,3)}'
+                return round(occupied_area / remaining_area,3)
 
     def __str__(self):
         return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
